@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.connectapp.com",
+      "sha256_cert_fingerprints": [
+        "a394c9150bf28f0c33aff868df855553a9dcf8eb1f1c5a351cd113f64b6beb1e"
+      ]
+    }
+  }
+]

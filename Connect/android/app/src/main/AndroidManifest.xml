@@ -1,0 +1,123 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Core permissions for flutter_local_notifications -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> 
+    <uses-permission android:name="android.permission.CAMERA"/> 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
+    <!-- Storage permissions (limit scope for Android 13+) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <!-- For Android 13+, use granular media permissions if needed -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/> -->
+
+    <application
+        android:label="connectapp"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name="app.connectapp.com.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:usesCleartextTraffic="true"
+            android:largeHeap="true"
+            android:requestLegacyExternalStorage="true"
+            android:windowSoftInputMode="adjustResize"
+            android:supportsRtl="true"> <!-- Added for RTL support -->
+
+    <!-- This is for launching app from app drawer -->
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+
+    <!-- This is for handling https links -->
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="myapp" android:host="auth" />
+        <data android:scheme="https" />
+    </intent-filter>
+
+    <meta-data
+        android:name="io.flutter.embedding.android.NormalTheme"
+        android:resource="@style/NormalTheme"/>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Custom scheme for deep links (app-only) -->
+              <data
+                android:scheme="https"
+                android:host="https://connectapp.cc"
+                android:pathPrefix="/clips" />
+              <data
+                android:scheme="http"
+                android:host="http://connectapp.cc"
+                android:pathPrefix="/clips" />
+                <!-- HTTPS App Links fallback (for Play Store redirect if app not installed) -->
+                <data
+                android:scheme="connectapp"
+                android:host="clips" />
+                <data
+                    android:scheme="connectapp"
+                    android:host="clip" />
+                <data
+                    android:scheme="https"
+                    android:host="https://connectapp.cc"
+                    android:pathPrefix="/app/register"/>
+                <data
+                    android:scheme="http"
+                    android:host="http://connectapp.cc"
+                    android:pathPrefix="/app/register"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="connectapp"/>
+            </intent-filter>
+
+
+        </activity>
+
+
+        <!-- Define default notification channel for flutter_local_notifications -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="channel_id"/>
+
+        <!-- Flutter embedding meta-data -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+    </application>
+
+    <!-- Queries for text processing -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>
