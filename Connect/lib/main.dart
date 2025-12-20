@@ -38,8 +38,12 @@ RemoteMessage? gInitialFcmMessage;
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('isBackgoundNotificaitonComing', "yesfirstsecond");
   log('[MAIN] Background FCM received');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationService().incrementBadge();
+  await NotificationService().showNotification(message);
 }
 
 final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>();
@@ -97,7 +101,9 @@ void main() async {
     gInitialFcmMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (gInitialFcmMessage != null) {
       log('[MAIN] 🔔 Captured initial FCM message for killed state navigation');
-    }
+      await NotificationService().incrementBadge();
+      await NotificationService().showNotification(gInitialFcmMessage!);
+    } else {}
   } catch (e) {
     log('[MAIN] Failed to capture initial FCM message: $e');
   }
